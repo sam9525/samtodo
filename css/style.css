@@ -1,0 +1,188 @@
+@charset "utf-8";
+/*
+ * Page name
+ * Copyright 2020
+ * Author
+ * Licensed
+ */
+/* -------------------------- *\
+    Content
+\* -------------------------- */
+ /**
+ * Content ............ You are reading it!
+ * Globel ............ Set common styles
+ * Layout ............ Set grid styles
+ * Component ............ Set component styles
+ */
+
+*{
+    box-sizing: border-box;
+    position: relative;
+}
+
+html,body{
+    font-family:  '微軟正黑體';
+    background-color: #131516;
+}
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: #333;
+}
+.wrapper{
+    margin: 6%;
+    padding: 3%;    
+    background-color: #000;
+    border: 3px solid #D2B071;
+    border-radius: 10px;
+}
+.title{
+    color: #D2B071;
+    font-size: 48px;
+}
+.input{
+    padding: 15px;
+}
+.ant{
+    width: 89%;
+    height: 50px;
+    font-size: 24px;
+    padding-left: 15px;
+    border-radius: 3px;
+    background-color: #000;
+    color: #D2B071;
+    outline: none;
+    border: 2px solid #3B4143;
+    transition: all 0.5s;
+}
+.input input:focus{
+    border-color: #D2B071;
+    background-color: #252526;
+}
+.content{
+    width: 100%;
+    height: 65px;
+    padding: 15px 15px 0px 15px;
+    line-height: 24px;
+}
+.clear{
+    float: right;
+    width: 10%;
+    height: 50px;
+    padding: 5px 10px 5px 10px;
+    background-color: #252526;
+    color: #D2B071;
+    border-radius: 3px;
+    font-size: 24px;
+    cursor: pointer;
+    border: 2px solid rgba(0,0,0,0);
+    transition: all 0.5s;
+}
+.clear:hover{
+    border: 2px solid #D2B071;
+    background-color: #1c1c1d;
+}
+.add{
+    float: right;
+    width: 10%;
+    height: 50px;
+    font-size: 24px;
+    color: #D2B071;
+    background-color: #252526;
+    border: 2px solid #252526;
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.add:hover{
+    border: 2px solid #D2B071;
+    background-color: #1c1c1d;
+}
+li{
+    padding: 0px 15px 15px 15px;
+}
+.box{
+    width: 100%;
+    height: 50px;
+    background-color: #252526;
+    line-height: 50px;
+    padding-left: 15px;
+    border-radius: 3px;
+}
+.box .para{
+    display: inline-block;
+    color: #D2B071;
+    font-size: 24px;
+}
+.icon{
+    float: right;
+    font-size: 24px;
+    line-height: 46px;
+    padding: 0px 15px;
+    color: #D2B071;
+    border: 2px solid #252526;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.icon:hover{
+    border: 2px solid #D2B071;
+    background-color: #1c1c1d;
+}
+
+.editbox{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 4.3%;
+    background-color: #00000065;
+}
+.et{
+    width: 89%;
+    height: 50px;
+    font-size: 24px;
+    padding-left: 15px;
+    border-radius: 3px;
+    background-color: #000;
+    color: #D2B071;
+    outline: none;
+    border: 2px solid #3B4143;
+    transition: all 0.5s;
+}
+.editbox input:focus{
+    border-color: #D2B071;
+    background-color: #252526;
+}
+.okay{
+    float: right;
+    width: 10%;
+    height: 50px;
+    padding: 5px 10px 5px 10px;
+    margin-left: 15px;
+    background-color: #252526;
+    color: #D2B071;
+    border-radius: 3px;
+    font-size: 24px;
+    cursor: pointer;
+    border: 2px solid rgba(0,0,0,0);
+    transition: all 0.5s;
+}
+.okay:hover{
+    border: 2px solid #D2B071;
+    background-color: #1c1c1d;
+}
+.disNone{
+    display: none;
+}
