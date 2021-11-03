@@ -33,11 +33,104 @@
     </div>
 </body>
 <script>
-    const inputBox = document.querySelector('input')
+    const inputBox = document.querySelector('.ant')
     const addBtn = document.querySelector('.add')
     const clearAll = document.querySelector('.clear')
     const todoList = document.querySelector('.todolist')
+    const editBox = document.querySelector('.editbox')
     const okayBtn = document.querySelector('.okay')
+    const Wrapper = document.querySelector('.wrapper')
+    const ET = document.querySelector('.et')
 
+    Wrapper.addEventListener('keydown', evt => {
+        if(evt.key === 'Enter'){
+            const inputs = document.querySelectorAll('input')
+            const html = `
+                <div class="box">
+                    <div class="para">${inputBox.value}</div>
+                    <div class="icon del"><i class="fas fa-trash-alt"></i></div>
+                    <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                </div>
+            `
+            const newEle = document.createElement('li')
+            newEle.innerHTML = html
+            todoList.appendChild(newEle)
+            inputBox.value = ''
+        }
+    })
+
+    Wrapper.addEventListener('click', evt => {
+        if (evt.target.classList.contains('add')){
+            const html = `
+                <div class="box">
+                    <div class="para">${inputBox.value}</div>
+                    <div class="icon del"><i class="fas fa-trash-alt"></i></div>
+                    <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                </div>
+            `
+            const newEle = document.createElement('li')
+            newEle.innerHTML = html
+            todoList.appendChild(newEle)
+            inputBox.value = ''
+        }
+        if (evt.target.classList.contains('fa-plus')){
+            const html = `
+                <div class="box">
+                    <div class="para">${inputBox.value}</div>
+                    <div class="icon del"><i class="fas fa-trash-alt"></i></div>
+                    <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                </div>
+            `
+            const newEle = document.createElement('li')
+            newEle.innerHTML = html
+            todoList.appendChild(newEle)
+            inputBox.value = ''
+        }
+        if(evt.target.classList.contains('clear')){
+            todoList.querySelectorAll('li').forEach((e) => {
+                e.remove(e)
+            })
+        }
+        if(evt.target.classList.contains('del')){
+            evt.target.parentNode.parentNode.remove(evt.target.parentNode.parentNode)
+        }
+        if(evt.target.classList.contains('fa-trash-alt')){
+            evt.target.parentNode.parentNode.parentNode.remove(evt.target.parentNode.parentNode.parentNode)
+        }
+        if(evt.target.classList.contains('edit')){
+            let text = evt.target.parentNode.innerText
+
+            editBox.querySelector("input").value = text
+            editBox.classList.remove("disNone")
+            editBox.addEventListener('click',(e) => {
+                if (e.target.classList.contains('okay')){
+                    editBox.classList.add("disNone")
+                    let html = `
+                        <div class="para">${ET.value}</div>
+                        <div class="icon del"><i class="fas fa-trash-alt"></i></div>
+                        <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                    `
+                    evt.target.parentNode.innerHTML = html
+                }
+            })
+        }
+        if(evt.target.classList.contains('fa-pencil-alt')){
+            let text = evt.target.parentNode.parentNode.innerText
+
+            editBox.querySelector("input").value = text
+            editBox.classList.remove("disNone")
+            editBox.addEventListener('click',(e) => {
+                if (e.target.classList.contains('okay')){
+                    editBox.classList.add("disNone")
+                    let html = `
+                        <div class="para">${ET.value}</div>
+                        <div class="icon del"><i class="fas fa-trash-alt"></i></div>
+                        <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                    `
+                    evt.target.parentNode.parentNode.innerHTML = html
+                }
+            })
+        }
+    })
 </script>
 </html>
