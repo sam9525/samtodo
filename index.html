@@ -16,6 +16,7 @@
         <div class="todo">
             <h1 class="title">Todo List</h1>
             <div class="content">
+                <span>You have <span class="pendingTasks"></span> pending tasks</span>
                 <button class="clear">CLEAR</button>
             </div>
         </div>
@@ -27,12 +28,89 @@
             
         </ul>   
         <div class="editbox disNone">
+            <i class="index"></i>
             <input type="text" class="et" placeholder="Edit todo">
             <button class="okay">OK</button> 
         </div> 
     </div>
 </body>
 <script>
-    
+    const addBtn = document.querySelector('.add')
+    const inputBox = document.querySelector('.ant')
+    const todoList = document.querySelector('.todolist')
+    const clearAll = document.querySelector('.clear')
+    const editBox = document.querySelector('.editbox')
+    var listArray = []
+
+    showTasks()
+    function showTasks(){
+        let userValue = inputBox.value
+        let getLocalStorageData = localStorage.getItem('NewTodo')
+        if(getLocalStorageData == null){
+            listArray = []
+        }else {
+            listArray = JSON.parse(getLocalStorageData)
+        }
+        const pendingTasksNumber = document.querySelector('.pendingTasks')
+        pendingTasksNumber.textContent = listArray.length;
+        let newTodoList = ''
+        listArray.forEach((element, index) => {
+            newTodoList += `
+                <li>
+                    <div class="box">
+                        <div class="para">${element}</div>
+                        <div class="icon del" onclick="deletedTask"><i class="fas fa-trash-alt"></i></div>
+                        <div class="icon edit" onclick="openEditTask(${index})"><i class="fas fa-pencil-alt"></i></div>
+                    </div>
+                </li>
+            `
+        })
+        todoList.innerHTML = newTodoList
+        inputBox.value = ''
+    }   
+    addBtn.onclick = () => {
+        let userValue = inputBox.value
+        if(userValue !== ""){
+            let getLocalStorageData = localStorage.getItem('NewTodo')
+            if(getLocalStorageData == null){
+                listArray = []
+            }else{
+                listArray = JSON.parse(getLocalStorageData)
+            }
+            listArray.push(userValue)
+            localStorage.setItem('NewTodo',JSON.stringify(listArray))
+            showTasks()
+        }
+    }
+    function deletedTask(index){
+        let getLocalStorageData = localStorage.getItem('NewTodo')
+        listArray = JSON.parse(getLocalStorageData)
+        listArray.splice(index, 1)
+        local.Storage.setItem("NewTodo", JSON.stringify(listArray))
+        showTasks()
+    }
+    clearAll.onclick = () => {
+        listArray = []
+        localStorage.setItem("NewTodo", JSON.stringify(listArray))
+        showTasks()
+    }
+    function openEditTask(index){
+        let getLocalStorageData  = localStorage.getItem('NewTodo')
+        listArray = JSON.parse(getLocalStorageData)
+        editValue = listArray[index]
+        editBox.querySelector('input').value = listArray[index]
+        editBox.querySelector('.index').innerText = index
+        editBox.classList.remove('disNone')
+    }
+    editBox.querySelector('button').onclick = () => {
+        let editValue = editBox.querySelector('input').value
+        let index = editBox.querySelector('.index').innerText
+        let getLocalStorageData = localStorage.getItem('NewTodo')
+        listArray = JSON.parse(getLocalStorageData);
+        listArray.splice(index, 1, editValue);
+        localStorage.setItem("NewTodo", JSON.stringify(listArray));
+        showTasks();
+        editBox.classList.add("disNone");
+    }
 </script>
 </html>
