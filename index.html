@@ -17,19 +17,14 @@
             <h1 class="title">Todo List</h1>
             <div class="content">
                 <button class="clear">CLEAR</button>
+                <button class="completed active">Completed</button>
             </div>
         </div>
         <div class="input">
             <input type="text" class="ant" placeholder="Add new todo">
             <button class="add"><i class="fas fa-plus"></i></button>
         </div>
-        <ul class="todolist">
-            
-        </ul>   
-        <div class="editbox disNone">
-            <input type="text" class="et" placeholder="Edit todo">
-            <button class="okay">OK</button> 
-        </div> 
+        <ul class="todolist"></ul>
     </div>
 </body>
 <script>
@@ -37,19 +32,24 @@
     const addBtn = document.querySelector('.add')
     const clearAll = document.querySelector('.clear')
     const todoList = document.querySelector('.todolist')
-    const editBox = document.querySelector('.editbox')
     const okayBtn = document.querySelector('.okay')
     const Wrapper = document.querySelector('.wrapper')
-    const ET = document.querySelector('.et')
 
-    Wrapper.addEventListener('keydown', evt => {
+    inputBox.addEventListener('keydown', evt => {
         if(evt.key === 'Enter'){
             const inputs = document.querySelectorAll('input')
             const html = `
-                <div class="box">
-                    <div class="para">${inputBox.value}</div>
-                    <div class="icon del"><i class="fas fa-trash-alt"></i></div>
-                    <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                <div class="addtodo">
+                    <div class="box">
+                        <input type="checkbox" class="todo_check">
+                        <div class="para">${inputBox.value}</div>
+                        <button class="icon del"><i class="fas fa-trash-alt"></i></button>
+                        <button class="icon edit"><i class="fas fa-pencil-alt"></i></button>
+                    </div>
+                    <div class="editbox disNone">
+                        <input type="text" class="et" placeholder="Edit todo">
+                        <button class="okay">OK</button> 
+                    </div>
                 </div>
             `
             const newEle = document.createElement('li')
@@ -58,33 +58,52 @@
             inputBox.value = ''
         }
     })
-
+    
     Wrapper.addEventListener('click', evt => {
-        if (evt.target.classList.contains('add')){
+        if ((evt.target.classList.contains('add')) && inputBox.value !== ''){
             const html = `
-                <div class="box">
-                    <div class="para">${inputBox.value}</div>
-                    <div class="icon del"><i class="fas fa-trash-alt"></i></div>
-                    <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                <div class="addtodo">
+                    <div class="box">
+                        <input type="checkbox" class="todo_check">
+                        <div class="para">${inputBox.value}</div>
+                        <button class="icon del"><i class="fas fa-trash-alt"></i></button>
+                        <button class="icon edit"><i class="fas fa-pencil-alt"></i></button>
+                    </div>
+                    <div class="editbox disNone">
+                        <input type="text" class="et" placeholder="Edit todo">
+                        <button class="okay">OK</button> 
+                    </div>
                 </div>
             `
             const newEle = document.createElement('li')
+            newEle.setAttribute('class', 'test')
             newEle.innerHTML = html
             todoList.appendChild(newEle)
             inputBox.value = ''
         }
-        if (evt.target.classList.contains('fa-plus')){
+        if ((evt.target.classList.contains('fa-plus')) && inputBox.value !== ''){
             const html = `
-                <div class="box">
-                    <div class="para">${inputBox.value}</div>
-                    <div class="icon del"><i class="fas fa-trash-alt"></i></div>
-                    <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                <div class="addtodo">
+                    <div class="box">
+                        <input type="checkbox" class="todo_check">
+                        <div class="para">${inputBox.value}</div>
+                        <button class="icon del"><i class="fas fa-trash-alt"></i></button>
+                        <button class="icon edit"><i class="fas fa-pencil-alt"></i></button>
+                    </div>
+                    <div class="editbox disNone">
+                        <input type="text" class="et" placeholder="Edit todo">
+                        <button class="okay">OK</button> 
+                    </div>
                 </div>
             `
             const newEle = document.createElement('li')
+            newEle.setAttribute('class', 'test')
             newEle.innerHTML = html
             todoList.appendChild(newEle)
             inputBox.value = ''
+        }
+        if(evt.target.classList.contains('todo_check')){
+            evt.target.parentNode.parentNode.parentNode.classList.toggle('todo_done')
         }
         if(evt.target.classList.contains('clear')){
             todoList.querySelectorAll('li').forEach((e) => {
@@ -92,13 +111,17 @@
             })
         }
         if(evt.target.classList.contains('del')){
-            evt.target.parentNode.parentNode.remove(evt.target.parentNode.parentNode)
+            evt.target.parentNode.parentNode.parentNode.remove('test')
         }
         if(evt.target.classList.contains('fa-trash-alt')){
-            evt.target.parentNode.parentNode.parentNode.remove(evt.target.parentNode.parentNode.parentNode)
+            evt.target.parentNode.parentNode.parentNode.parentNode.remove('test')
         }
         if(evt.target.classList.contains('edit')){
             let text = evt.target.parentNode.innerText
+            evt.target.parentNode.parentNode.classList.toggle('this')
+            const thisTodo = document.querySelector('.this')
+            const editBox = thisTodo.querySelector('.editbox')
+            const ET = thisTodo.querySelector('.et')
 
             editBox.querySelector("input").value = text
             editBox.classList.remove("disNone")
@@ -106,16 +129,47 @@
                 if (e.target.classList.contains('okay')){
                     editBox.classList.add("disNone")
                     let html = `
-                        <div class="para">${ET.value}</div>
-                        <div class="icon del"><i class="fas fa-trash-alt"></i></div>
-                        <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                        <div class="box">
+                            <input type="checkbox" class="todo_check">
+                            <div class="para">${ET.value}</div>
+                            <button class="icon del"><i class="fas fa-trash-alt"></i></button>
+                            <button class="icon edit"><i class="fas fa-pencil-alt"></i></button>
+                        </div>
+                        <div class="editbox disNone">
+                            <input type="text" class="et" placeholder="Edit todo">
+                            <button class="okay">OK</button> 
+                        </div>
                     `
-                    evt.target.parentNode.innerHTML = html
+                    evt.target.parentNode.parentNode.innerHTML = html
+                    thisTodo.classList.remove('this')
                 }
+                Wrapper.addEventListener('keydown', evt => {
+                    if(evt.key === 'Enter'){
+                        editBox.classList.add("disNone")
+                        let html = `
+                            <div class="box">
+                                <input type="checkbox" class="todo_check">
+                                <div class="para">${ET.value}</div>
+                                <button class="icon del"><i class="fas fa-trash-alt"></i></button>
+                                <button class="icon edit"><i class="fas fa-pencil-alt"></i></button>
+                            </div>
+                            <div class="editbox disNone">
+                                <input type="text" class="et" placeholder="Edit todo">
+                                <button class="okay">OK</button> 
+                            </div>
+                        `
+                        thisTodo.innerHTML = html
+                        thisTodo.classList.remove('this')
+                    }
+                })
             })
         }
         if(evt.target.classList.contains('fa-pencil-alt')){
             let text = evt.target.parentNode.parentNode.innerText
+            evt.target.parentNode.parentNode.parentNode.classList.toggle('this')
+            const thisTodo = document.querySelector('.this')
+            const editBox = thisTodo.querySelector('.editbox')
+            const ET = thisTodo.querySelector('.et')
 
             editBox.querySelector("input").value = text
             editBox.classList.remove("disNone")
@@ -123,14 +177,47 @@
                 if (e.target.classList.contains('okay')){
                     editBox.classList.add("disNone")
                     let html = `
-                        <div class="para">${ET.value}</div>
-                        <div class="icon del"><i class="fas fa-trash-alt"></i></div>
-                        <div class="icon edit"><i class="fas fa-pencil-alt"></i></div>
+                        <div class="box">
+                            <input type="checkbox" class="todo_check">
+                            <div class="para">${ET.value}</div>
+                            <button class="icon del"><i class="fas fa-trash-alt"></i></button>
+                            <button class="icon edit"><i class="fas fa-pencil-alt"></i></button>
+                        </div>
+                        <div class="editbox disNone">
+                            <input type="text" class="et" placeholder="Edit todo">
+                            <button class="okay">OK</button> 
+                        </div>
                     `
-                    evt.target.parentNode.parentNode.innerHTML = html
+                    evt.target.parentNode.parentNode.parentNode.innerHTML = html
+                    thisTodo.classList.remove('this')
                 }
+                ET.addEventListener('keydown', evt => {
+                    if(evt.key === 'Enter'){
+                        editBox.classList.add("disNone")
+                        let html = `
+                            <div class="box">
+                                <input type="checkbox" class="todo_check">
+                                <div class="para">${ET.value}</div>
+                                <button class="icon del"><i class="fas fa-trash-alt"></i></button>
+                                <button class="icon edit"><i class="fas fa-pencil-alt"></i></button>
+                            </div>
+                            <div class="editbox disNone">
+                                <input type="text" class="et" placeholder="Edit todo">
+                                <button class="okay">OK</button> 
+                            </div>
+                        `
+                        thisTodo.innerHTML = html
+                        thisTodo.classList.remove('this')
+                    }
+                })
             })
         }
+        if(evt.target.classList.contains('completed')){
+            todoList.querySelectorAll('.todo_done').forEach((e) => {
+                e.classList.toggle('disNone')
+            })
+            evt.target.classList.toggle('active')
+        }  
     })
 </script>
 </html>
